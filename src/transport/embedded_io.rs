@@ -10,6 +10,19 @@ use super::Transport;
 /// any additional connection logic.
 pub struct ConnectedSocketTransport<S>(S);
 
+impl<S> ConnectedSocketTransport<S> {
+    /// Wraps an existing connection with a transport suitable
+    /// for interacting with an MQTT stack.
+    #[inline]
+    #[must_use]
+    pub fn new(socket: S) -> Self
+    where
+        S: Read + Write,
+    {
+        Self(socket)
+    }
+}
+
 impl<S: Read + Write> Transport for ConnectedSocketTransport<S> {
     type Socket = S;
 
