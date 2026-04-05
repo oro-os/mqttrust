@@ -81,7 +81,7 @@ pub use stack::MqttStack;
 use state::Shared;
 
 pub use encoding::*;
-pub use error::Error;
+pub use error::{Error, ConnectionError};
 
 #[cfg(feature = "mqttv5")]
 pub use encoding::{Properties, Property, RetainHandling};
