@@ -126,7 +126,10 @@ impl<'a, M: RawMutex> MqttStack<'a, M> {
             if let Err(e) = fut.await {
                 error!("Stack error {}", e);
                 // Clean state
-                transport.disconnect().ok();
+                if let Err(e) = transport.disconnect() {
+                    error!("Failed to disconnect transport after error: {}", e);
+                    return;
+                }
                 self.reset().await;
             }
         }
